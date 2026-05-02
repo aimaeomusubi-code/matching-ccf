@@ -1,0 +1,41 @@
+name: Gmail Daily Organizer
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # 09:00 JST (00:00 UTC)
+  workflow_dispatch:       # Allow manual runs for testing
+
+jobs:
+  organize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Gmail Organizer
+        env:
+          GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
+          GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+          GMAIL_USER_EMAIL: ${{ secrets.GMAIL_USER_EMAIL }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python src/gmail_organizer.py
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: organizer-logs-${{ github.run_id }}
+          path: organizer.log
+          retention-days: 7
