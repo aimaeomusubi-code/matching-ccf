@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Illustrator AI アシスタント</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">Ai</span>
+          <span class="logo-text">Illustrator AI アシスタント</span>
+        </div>
+        <div class="os-toggle">
+          <button class="os-btn active" data-os="mac">Mac</button>
+          <button class="os-btn" data-os="win">Windows</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="search-section">
+        <p class="search-lead">Illustratorで何をしたいですか？</p>
+        <form id="search-form" class="search-form">
+          <textarea
+            id="query-input"
+            class="query-input"
+            placeholder="例：複数のオブジェクトをグループ化したい&#10;例：テキストをアウトライン化したい&#10;例：画像をトレースしてパスに変換したい"
+            rows="3"
+          ></textarea>
+          <button type="submit" class="submit-btn" id="submit-btn">
+            <span class="submit-icon">&#x2315;</span>
+            <span class="submit-text">操作を調べる</span>
+          </button>
+        </form>
+      </section>
+
+      <section id="result-section" class="result-section hidden">
+        <div id="loading" class="loading hidden">
+          <div class="spinner"></div>
+          <span>AIが回答を生成中...</span>
+        </div>
+
+        <div id="error-msg" class="error-msg hidden"></div>
+
+        <div id="result-content" class="result-content hidden">
+          <p id="result-summary" class="result-summary"></p>
+          <div id="operations-grid" class="operations-grid"></div>
+        </div>
+      </section>
+
+      <section class="examples-section" id="examples-section">
+        <p class="examples-lead">こんな質問ができます</p>
+        <div class="examples-grid">
+          <button class="example-chip">パスをアウトライン化したい</button>
+          <button class="example-chip">オブジェクトを整列させたい</button>
+          <button class="example-chip">クリッピングマスクを作りたい</button>
+          <button class="example-chip">グラデーションを追加したい</button>
+          <button class="example-chip">文字のカーニングを調整したい</button>
+          <button class="example-chip">画像をライブトレースしたい</button>
+          <button class="example-chip">パスファインダーで形を合成したい</button>
+          <button class="example-chip">アートボードを追加したい</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
